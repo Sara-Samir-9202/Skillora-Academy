@@ -1,0 +1,17 @@
+﻿@model StudentSystem.Models.Department
+
+<h2 class="mb-4">Edit Department</h2>
+
+<form asp-action="Edit" method="post">
+
+    <input type="hidden" asp-for="DeptId" />
+
+    <input asp-for="Name" class="form-control mb-2" placeholder="Department Name" />
+    <input asp-for="Location" class="form-control mb-2" placeholder="Location" />
+    <input asp-for="PhoneNumber" class="form-control mb-2" placeholder="Phone Number" />
+
+    <button class="btn btn-warning w-100 mt-3">Update</button>
+
+</form>
+
+<a asp-action="Index" class="btn btn-secondary w-100 mt-2">Back</a>

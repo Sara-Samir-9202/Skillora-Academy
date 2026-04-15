@@ -1,0 +1,131 @@
+﻿@model StudentSystem.Models.Student
+
+<h2 class="mb-4">Add Student</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+
+    <div class="mb-2">
+        <input asp-for="Name" class="form-control" placeholder="Name (4-15 characters)" />
+        <span asp-validation-for="Name" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-2">
+        <input asp-for="Email" class="form-control" placeholder="Email" />
+    </div>
+
+    <div class="mb-2">
+        <input asp-for="Phone" class="form-control" placeholder="Phone" />
+    </div>
+
+    <div class="mb-2">
+        <input asp-for="Age" class="form-control" placeholder="Age (12-24)" type="number" />
+        <span asp-validation-for="Age" class="text-danger small"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Address</label>
+        <select asp-for="Address" class="form-control">
+            <option value="">Select Address</option>
+            <option value="Cairo">Cairo</option>
+            <option value="Alex">Alex</option>
+            <option value="Ismailia">Ismailia</option>
+        </select>
+        <span asp-validation-for="Address" class="text-danger small"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Department</label>
+        <select asp-for="DeptId" class="form-control">
+            <option value="">Select Department</option>
+            @foreach (var dept in ViewBag.Departments)
+            {
+                <option value="@dept.DeptId">@dept.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Image (.jpg or .png only)</label>
+        <input type="file" name="file" class="form-control" accept=".jpg,.png" />
+        <span class="text-danger small" id="imgError"></span>
+    </div>
+
+    <hr />
+    <h5>Courses & Degrees</h5>
+
+    <div id="courseList"></div>
+
+    <div class="row mb-2">
+        <div class="col">
+            <select id="courseSelect" class="form-control">
+                <option value="">Select Course</option>
+                @foreach (var course in (IEnumerable<StudentSystem.Models.Course>)ViewBag.Courses)
+                {
+                    <option value="@course.CrsId">@course.Name</option>
+                }
+            </select>
+        </div>
+        <div class="col">
+            <input type="number" id="degreeInput" class="form-control"
+                   placeholder="Degree" min="0" max="100" />
+        </div>
+        <div class="col-auto">
+            <button type="button" class="btn btn-outline-primary"
+                    onclick="addCourse()">
+                + Add
+            </button>
+        </div>
+    </div>
+
+    <button class="btn btn-success w-100 mt-3">Save</button>
+
+</form>
+
+<script>
+    let courseIndex = 0;
+
+    document.querySelector('input[name="file"]').addEventListener('change', function () {
+        const file = this.files[0];
+        const error = document.getElementById("imgError");
+        if (file) {
+            const ext = file.name.split('.').pop().toLowerCase();
+            if (ext !== 'jpg' && ext !== 'png') {
+                error.textContent = "Only .jpg or .png files are allowed";
+                this.value = "";
+            } else {
+                error.textContent = "";
+            }
+        }
+    });
+
+    function addCourse() {
+        const select = document.getElementById("courseSelect");
+        const degree = document.getElementById("degreeInput").value;
+        const courseId = select.value;
+        const courseName = select.options[select.selectedIndex].text;
+
+        if (!courseId || !degree) return;
+
+        // CHECK IF COURSE ALREADY ADDED
+        const existing = document.querySelectorAll(`input[name^="CourseIds"]`);
+        for (let i = 0; i < existing.length; i++) {
+            if (existing[i].value === courseId) {
+                alert("This course is already added!");
+                return;
+            }
+        }
+
+        const list = document.getElementById("courseList");
+
+        list.innerHTML += `
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge bg-primary">${courseName} — ${degree}</span>
+                <input type="hidden" name="CourseIds[${courseIndex}]" value="${courseId}" />
+                <input type="hidden" name="Degrees[${courseIndex}]" value="${degree}" />
+            </div>`;
+
+        courseIndex++;
+        select.value = "";
+        document.getElementById("degreeInput").value = "";
+    }
+</script>

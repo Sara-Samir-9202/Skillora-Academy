@@ -1,0 +1,108 @@
+﻿@model StudentSystem.Models.Student
+
+<div class="container mt-5 d-flex flex-column align-items-center">
+
+    <!-- SUCCESS MESSAGE -->
+    <div class="success-banner mb-4">
+        <div class="success-icon">✓</div>
+        <div>
+            <h4 class="mb-0 fw-bold">Student Added Successfully!</h4>
+            <p class="mb-0 text-muted">The student has been saved to the system.</p>
+        </div>
+    </div>
+
+    <!-- STUDENT CARD -->
+    <div class="card shadow-lg rounded-4 p-4" style="width:400px;">
+
+        <div class="profile-img mx-auto">
+            <img src="/images/@Model.Image" />
+        </div>
+
+        <h3 class="mt-3 fw-bold text-center">@Model.Name</h3>
+
+        <hr />
+
+        <p class="mb-1"><b>Email:</b> @Model.Email</p>
+        <p class="mb-1"><b>Phone:</b> @Model.Phone</p>
+        <p class="mb-1"><b>Address:</b> @Model.Address</p>
+        <p class="mb-1"><b>Age:</b> @Model.Age</p>
+
+        <hr />
+
+        <p class="mb-1">
+            <b>Department:</b>
+            <span class="text-primary">@Model.Department?.Name</span>
+        </p>
+
+        <hr />
+
+        <h5>Courses</h5>
+
+        @if (Model.StudentCourses != null && Model.StudentCourses.Any())
+        {
+            foreach (var sc in Model.StudentCourses)
+            {
+                <p class="mb-0"><b>Course Name:</b> @sc.Course.Name</p>
+                <p class="mb-2">
+                    <b>Degree:</b>
+                    <span style="color:@(sc.Degree < 60 ? "red" : "green"); font-weight:bold;">
+                        @sc.Degree
+                    </span>
+                </p>
+            }
+        }
+        else
+        {
+            <p class="text-muted">No courses assigned.</p>
+        }
+
+        <div class="d-flex gap-2 mt-3">
+            <a asp-action="Index" class="btn btn-primary w-50">All Students</a>
+            <a asp-action="Create" class="btn btn-outline-primary w-50">Add Another</a>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .success-banner {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background: #d1f5e0;
+        border: 1px solid #a3dfc0;
+        border-radius: 12px;
+        padding: 16px 24px;
+        width: 400px;
+    }
+
+    .success-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #0f5132;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    .profile-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 4px solid #0d6efd;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .profile-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>

@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Skillora Academy</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: linear-gradient(90deg, #4e54c8, #8f94fb);
+            height: 60px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #fff !important;
+            font-size: 20px;
+        }
+
+        .menu-btn {
+            font-size: 28px;
+            cursor: pointer;
+            color: white;
+            border: none;
+            background: transparent;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -260px;
+            width: 250px;
+            height: 100vh;
+            background: #1f1f2e;
+            padding-top: 80px;
+            transition: 0.35s ease;
+            color: white;
+            z-index: 999;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+        }
+
+            .sidebar a {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 14px 24px;
+                color: #ccc;
+                text-decoration: none;
+                font-size: 15px;
+                transition: 0.2s;
+            }
+
+                .sidebar a:hover {
+                    background: #4e54c8;
+                    color: white;
+                    padding-left: 30px;
+                }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+        /* ===== OVERLAY ===== */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 998;
+            cursor: pointer;
+        }
+
+            .overlay.active {
+                display: block;
+            }
+
+        /* ===== HERO ===== */
+        .hero-fullpage {
+            min-height: calc(100vh - 60px);
+            margin-top: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 80px;
+            background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+            gap: 40px;
+        }
+
+        .hero-text h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #4e54c8;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 16px;
+            max-width: 480px;
+        }
+
+        .hero-image img {
+            width: 480px;
+            max-width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(78, 84, 200, 0.25);
+        }
+
+        /* ===== CONTENT ===== */
+        .page-content {
+            margin-top: 80px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @@media (max-width: 768px) {
+            .hero-fullpage {
+                flex-direction: column;
+                padding: 40px 24px;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-image img {
+                width: 280px;
+            }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: linear-gradient(90deg, #4e54c8, #8f94fb);
+            color: white;
+            padding: 10px 0;
+            margin-top: auto;
+            font-size: 13px;
+            box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
+        }
+
+            .footer p {
+                margin-bottom: 6px;
+            }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+            .footer-links a {
+                width: 38px;
+                height: 38px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                text-decoration: none;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.12);
+                transition: 0.25s;
+                font-size: 16px;
+            }
+
+                .footer-links a:hover {
+                    background: rgba(255, 255, 255, 0.3);
+                    transform: translateY(-2px) scale(1.05);
+                }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container-fluid px-4">
+
+            <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+            <a class="navbar-brand ms-3" asp-controller="Dashboard" asp-action="Index">
+                Skillora Academy
+            </a>
+
+        </div>
+    </nav>
+
+    <!-- OVERLAY -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+
+        <a asp-controller="Dashboard" asp-action="Index">🏠 Home</a>
+        <a asp-controller="Student" asp-action="Index">👨‍🎓 Students</a>
+        <a asp-controller="Course" asp-action="Index">📚 Courses</a>
+        <a asp-controller="Department" asp-action="Index">🏢 Departments</a>
+        <a asp-controller="Instructor" asp-action="Index">👨‍🏫 Instructors</a>
+
+    </div>
+
+    <!-- HERO -->
+    @if (ViewData["ShowHero"] as bool? == true)
+    {
+        <div class="hero-fullpage">
+
+            <div class="hero-text">
+                <h1>Welcome to<br />Skillora Academy 📚</h1>
+                <p>Manage students, courses, and departments easily and efficiently from one place.</p>
+            </div>
+
+            <div class="hero-image">
+                <img src="~/images/course.png" alt="Academy" />
+            </div>
+
+        </div>
+    }
+
+    <!-- CONTENT -->
+    <div class="@(ViewData["ShowHero"] as bool? == true ? "" : "page-content")">
+        @RenderBody()
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container text-center">
+
+            <p>© 2026 Skillora Academy</p>
+
+            <div class="footer-links">
+
+                <!-- EMAIL (OPEN GMAIL COMPOSE DIRECTLY) -->
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sarasamir9202@gmail.com&su=Skillora%20Academy%20Support&body=Hello%20I%20want%20to%20contact%20you"
+                   target="_blank"
+                   title="Email">
+
+                    <i class="bi bi-envelope-fill"></i>
+                </a>
+
+                <!-- GITHUB -->
+                <a href="https://github.com/Sara-Samir-9202" target="_blank" title="GitHub">
+                    <i class="bi bi-github"></i>
+                </a>
+
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("active");
+            document.getElementById("overlay").classList.toggle("active");
+        }
+
+        document.querySelectorAll(".sidebar a").forEach(a => {
+            a.addEventListener("click", () => {
+                document.getElementById("sidebar").classList.remove("active");
+                document.getElementById("overlay").classList.remove("active");
+            });
+        });
+    </script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

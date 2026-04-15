@@ -1,0 +1,36 @@
+﻿@model StudentSystem.Models.Instructor
+
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow-lg rounded-4 p-4" style="width:480px;">
+
+        <h4 class="fw-bold text-center mb-3">👨‍🏫 @Model.Name</h4>
+
+        <hr />
+
+        <p class="mb-1"><b>Email:</b> @Model.Email</p>
+        <p class="mb-1"><b>Age:</b> @Model.Age</p>
+        <p class="mb-1"><b>Salary:</b> @Model.Salary</p>
+        <p class="mb-1"><b>Degree:</b> @Model.Degree</p>
+        <p class="mb-1"><b>Address:</b> @Model.Address</p>
+        <p class="mb-1"><b>Department:</b> @Model.Department?.Name</p>
+
+        <hr />
+
+        <h5>Courses</h5>
+
+        @if (Model.CourseInstructors != null && Model.CourseInstructors.Any())
+        {
+            foreach (var ci in Model.CourseInstructors)
+            {
+                <p class="mb-1"><b>Course:</b> @ci.Course.Name</p>
+            }
+        }
+        else
+        {
+            <p class="text-muted">No courses assigned yet.</p>
+        }
+
+        <a asp-action="Index" class="btn btn-primary w-100 mt-3">Back</a>
+
+    </div>
+</div>

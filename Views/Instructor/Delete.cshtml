@@ -1,0 +1,18 @@
+﻿@model StudentSystem.Models.Instructor
+
+<h2 class="mb-4 text-danger">Delete Instructor</h2>
+
+<div class="card shadow-sm p-4" style="max-width:400px;">
+
+    <p><b>Name:</b> @Model.Name</p>
+    <p><b>Email:</b> @Model.Email</p>
+    <p><b>Department:</b> @Model.Department?.Name</p>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="InsId" />
+        <button class="btn btn-danger w-100">Yes, Delete</button>
+    </form>
+
+    <a asp-action="Index" class="btn btn-secondary w-100 mt-2">Cancel</a>
+
+</div>

@@ -1,0 +1,41 @@
+﻿@model StudentSystem.Models.Course
+
+<h2 class="mb-4">Add Course</h2>
+
+<form asp-action="Create" method="post">
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Course Name</label>
+        <input asp-for="Name" class="form-control" placeholder="Enter course name" />
+        <span asp-validation-for="Name" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Description</label>
+        <input asp-for="Description" class="form-control" placeholder="Enter description" />
+        <span asp-validation-for="Description" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Min Degree</label>
+        <input asp-for="MinDegree" class="form-control" placeholder="Enter min degree (0-100)" type="number" />
+        <span asp-validation-for="MinDegree" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Max Degree</label>
+        <input asp-for="MaxDegree" class="form-control" placeholder="Enter max degree (0-100)" type="number" />
+        <span asp-validation-for="MaxDegree" class="text-danger small"></span>
+    </div>
+
+    <button class="btn btn-success w-100">Save</button>
+
+    <div class="text-danger mt-2">
+        @Html.ValidationSummary(excludePropertyErrors: true)
+    </div>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

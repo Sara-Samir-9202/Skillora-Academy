@@ -1,0 +1,32 @@
+﻿@model StudentSystem.Models.Student
+
+<h2>Edit Student</h2>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" asp-for="SSN" />
+
+    <input asp-for="Name" class="form-control mb-2" />
+
+    <input asp-for="Email" class="form-control mb-2" />
+
+    <input asp-for="Phone" class="form-control mb-2" />
+
+    <input asp-for="Address" class="form-control mb-2" />
+
+    <div class="form-group mb-3">
+        <label>Department</label>
+        <select asp-for="DeptId" class="form-control">
+            <option value="">Select Department</option>
+            @foreach (var dept in ViewBag.Departments)
+            {
+                <option value="@dept.DeptId">@dept.Name</option>
+            }
+        </select>
+    </div>
+
+    <input type="file" name="file" class="form-control mb-3" />
+
+    <button class="btn btn-warning w-100">Update</button>
+
+</form>

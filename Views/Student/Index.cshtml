@@ -1,0 +1,74 @@
+﻿@model IEnumerable<StudentSystem.ViewModels.StudentVM>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">
+        ➕ Add New Student
+    </a>
+</div>
+
+
+<div class="table-responsive">
+
+    <table class="table table-hover shadow-sm">
+
+        <thead style="background: linear-gradient(90deg, #4e54c8, #8f94fb);">
+            <tr>
+                <th style="color:black; font-weight:bold; background:transparent;">Image</th>
+                <th style="color:black; font-weight:bold; background:transparent;">Name</th>
+                <th style="color:black; font-weight:bold; background:transparent;">Email</th>
+                <th style="color:black; font-weight:bold; background:transparent;">Phone</th>
+                <th style="color:black; font-weight:bold; background:transparent;">Department</th>
+                <th style="color:black; font-weight:bold; background:transparent;" class="text-center">Actions</th>
+            </tr>
+        </thead>
+
+
+
+
+        <tbody>
+
+            @foreach (var student in Model)
+            {
+                <tr>
+
+                    <td>
+                        <img src="/images/@student.Image"
+                             style="width:60px;height:60px;object-fit:cover;border-radius:10px;" />
+                    </td>
+
+                    <td>@student.Name</td>
+                    <td>@student.Email</td>
+                    <td>@student.Phone</td>
+                    <td>@student.DepartmentName</td>
+
+                    <td class="text-center">
+
+                        <a asp-action="Details"
+                           asp-route-id="@student.SSN"
+                           class="btn btn-info btn-sm">
+                            View
+                        </a>
+
+                        <a asp-action="Edit"
+                           asp-route-id="@student.SSN"
+                           class="btn btn-warning btn-sm">
+                            Edit
+                        </a>
+
+                        <a asp-action="Delete"
+                           asp-route-id="@student.SSN"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Are you sure?')">
+                            Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>

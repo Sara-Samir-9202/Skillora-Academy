@@ -1,0 +1,37 @@
+﻿@model StudentSystem.Models.Course
+
+<h2 class="mb-4">Edit Course</h2>
+
+<form asp-action="Edit" method="post">
+
+    <input type="hidden" asp-for="CrsId" />
+
+    <input asp-for="Name"
+           class="form-control mb-2"
+           placeholder="Course Name" />
+
+    <input asp-for="Description"
+           class="form-control mb-2"
+           placeholder="Description" />
+
+    <input asp-for="MinDegree"
+           class="form-control mb-2"
+           type="number"
+           min="0"
+           placeholder="Min Degree" />
+
+    <input asp-for="MaxDegree"
+           class="form-control mb-2"
+           type="number"
+           min="0"
+           placeholder="Max Degree" />
+
+    <button class="btn btn-warning w-100 mt-3">
+        Update
+    </button>
+
+</form>
+
+<a asp-action="Index" class="btn btn-secondary w-100 mt-2">
+    Back
+</a>

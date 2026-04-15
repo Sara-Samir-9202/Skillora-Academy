@@ -1,0 +1,46 @@
+﻿@model IEnumerable<StudentSystem.Models.Instructor>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">
+        ➕ Add New Instructor
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover shadow-sm">
+        <thead style="background: linear-gradient(90deg, #4e54c8, #8f94fb);">
+            <tr>
+                <th style="color:black; font-weight:bold; background:transparent;">ID</th>
+                <th style="color:black; font-weight:bold; background:transparent;">Name</th>
+                <th style="color:black; font-weight:bold; background:transparent;">Email</th>
+                <th style="color:black; font-weight:bold; background:transparent;">Degree</th>
+                <th style="color:black; font-weight:bold; background:transparent;">Department</th>
+                <th style="color:black; font-weight:bold; background:transparent;" class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ins in Model)
+            {
+                <tr>
+                    <td>@ins.InsId</td>
+                    <td>@ins.Name</td>
+                    <td>@ins.Email</td>
+                    <td>@ins.Degree</td>
+                    <td>@ins.Department?.Name</td>
+                    <td class="text-center">
+                        <a asp-action="Details"
+                           asp-route-id="@ins.InsId"
+                           class="btn btn-info btn-sm">View</a>
+                        <a asp-action="Edit"
+                           asp-route-id="@ins.InsId"
+                           class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete"
+                           asp-route-id="@ins.InsId"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

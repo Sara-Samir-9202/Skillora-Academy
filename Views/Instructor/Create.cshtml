@@ -1,0 +1,64 @@
+﻿@model StudentSystem.Models.Instructor
+
+<h2 class="mb-4">Add Instructor</h2>
+
+<form asp-action="Create" method="post">
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Name</label>
+        <input asp-for="Name" class="form-control" placeholder="Enter name" />
+        <span asp-validation-for="Name" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Email</label>
+        <input asp-for="Email" class="form-control" placeholder="Enter email" />
+        <span asp-validation-for="Email" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Age</label>
+        <input asp-for="Age" class="form-control" placeholder="Enter age (22-60)" type="number" />
+        <span asp-validation-for="Age" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Salary (5000 - 15000)</label>
+        <input asp-for="Salary" class="form-control" placeholder="Enter salary" type="number" />
+        <span asp-validation-for="Salary" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Degree</label>
+        <select asp-for="Degree" class="form-control">
+            <option value="">-- Select Degree --</option>
+            <option value="Bachelor">Bachelor</option>
+            <option value="Master">Master</option>
+            <option value="PhD">PhD</option>
+        </select>
+        <span asp-validation-for="Degree" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Address</label>
+        <input asp-for="Address" class="form-control" placeholder="Enter address" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Department</label>
+        <select asp-for="DeptId" class="form-control">
+            <option value="">-- Select Department --</option>
+            @foreach (var dept in ViewBag.Departments)
+            {
+                <option value="@dept.DeptId">@dept.Name</option>
+            }
+        </select>
+    </div>
+
+    <button class="btn btn-success w-100">Save</button>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
