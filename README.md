@@ -130,6 +130,13 @@ Ctrl + F5
 - Login Page
 <img width="1883" height="900" alt="image" src="https://github.com/user-attachments/assets/b47ba6d7-4c37-451d-9561-126d6ddc36aa" />
 
+ -Register Page
+ <img width="1867" height="888" alt="image" src="https://github.com/user-attachments/assets/3cd7948d-83fd-449a-96ef-ba839a851929" />
+
+ -Email Service
+ <img width="1671" height="410" alt="image" src="https://github.com/user-attachments/assets/92a6a7ba-3087-430d-94fa-3af55800fa0f" />
+
+
 - Admin Dashboard
 <img width="1885" height="886" alt="image" src="https://github.com/user-attachments/assets/be0ede57-b06b-4894-93e9-6424812fb1f5" />
 
